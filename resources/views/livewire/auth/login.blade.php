@@ -1,6 +1,34 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use Flux\Flux;
+
+?>
+
 <x-layouts.auth>
     <div class="flex flex-col gap-6">
-        <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
+        <x-auth-header :title="__('Welcome back')" :description="__('Enter your email and password below to log in')" />
+
+        <!-- Social Login -->
+        <div class="grid grid-cols-2 gap-3">
+            <flux:button variant="outline" class="w-full gap-2">
+                <span class="iconify text-lg" data-icon="logos:google-icon"></span>
+                Google
+            </flux:button>
+            <flux:button variant="outline" class="w-full gap-2">
+                <span class="iconify text-lg dark:invert" data-icon="logos:github-icon"></span>
+                GitHub
+            </flux:button>
+        </div>
+
+        <!-- Divider -->
+        <div class="relative flex items-center py-2">
+            <div class="flex-grow border-t border-zinc-200 dark:border-zinc-700"></div>
+            <span class="flex-shrink-0 mx-4 text-xs font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">
+                Or continue with
+            </span>
+            <div class="flex-grow border-t border-zinc-200 dark:border-zinc-700"></div>
+        </div>
 
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
@@ -18,6 +46,7 @@
                 autofocus
                 autocomplete="email"
                 placeholder="email@example.com"
+                icon="envelope"
             />
 
             <!-- Password -->
@@ -30,11 +59,12 @@
                     autocomplete="current-password"
                     :placeholder="__('Password')"
                     viewable
+                    icon="lock-closed"
                 />
 
                 @if (Route::has('password.request'))
-                    <flux:link class="absolute top-0 text-sm end-0" :href="route('password.request')" wire:navigate>
-                        {{ __('Forgot your password?') }}
+                    <flux:link class="absolute top-0 right-0 text-sm" :href="route('password.request')" wire:navigate>
+                        {{ __('Forgot password?') }}
                     </flux:link>
                 @endif
             </div>
@@ -50,9 +80,11 @@
         </form>
 
         @if (Route::has('register'))
-            <div class="space-x-1 text-sm text-center rtl:space-x-reverse text-zinc-600 dark:text-zinc-400">
-                <span>{{ __('Don\'t have an account?') }}</span>
-                <flux:link :href="route('register')" wire:navigate>{{ __('Sign up') }}</flux:link>
+            <div class="text-center text-sm text-zinc-600 dark:text-zinc-400">
+                {{ __('Don\'t have an account?') }}
+                <flux:link :href="route('register')" class="font-semibold" wire:navigate>
+                    {{ __('Sign up') }}
+                </flux:link>
             </div>
         @endif
     </div>
