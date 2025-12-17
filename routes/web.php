@@ -7,6 +7,10 @@ use App\Livewire\Settings\TwoFactor;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
+use App\Livewire\System\Installer;
+
+Route::get('/install', Installer::class)->name('install');
+
 Route::get('/', function () {
     return view('welcome');
 })->name('home');

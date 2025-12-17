@@ -15,27 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // Panggil seeder Permission terlebih dahulu
         $this->call(RolePermissionSeeder::class);
-
-        // User::factory(10)->create();
-
-        // Buat Super Admin
-        $superAdmin = User::factory()->create([
-            'name' => 'Super Admin',
-            'email' => 'admin@example.com',
-        ]);
-        $superAdmin->assignRole('super-admin');
-
-        // Buat Writer user
-        $writer = User::factory()->create([
-            'name' => 'Writer User',
-            'email' => 'writer@example.com',
-        ]);
-        $writer->assignRole('writer');
-
-        // Buat Regular user (tanpa role spesifik atau role default jika ada)
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $this->call(SiteSettingSeeder::class);
+        $this->call(MenuPermissionSeeder::class);
     }
 }
